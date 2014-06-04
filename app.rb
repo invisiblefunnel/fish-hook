@@ -12,7 +12,6 @@ if ENV['BASIC_AUTH_NAME'] && ENV['BASIC_AUTH_PASSWORD']
 end
 
 post '/hooks/:subscriber_id' do
-  subscriber_id = params.delete(:subscriber_id)
-  DB[:hooks].insert(subscriber_id: subscriber_id, payload: params.to_json)
+  DB[:hooks].insert(subscriber_id: params[:subscriber_id], payload: request.body.read)
   200
 end
