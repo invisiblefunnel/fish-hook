@@ -2,6 +2,7 @@ require 'dotenv'
 Dotenv.load
 
 require './db'
+require 'json'
 require 'sinatra'
 
 if ENV['BASIC_AUTH_NAME'] && ENV['BASIC_AUTH_PASSWORD']
@@ -11,5 +12,7 @@ if ENV['BASIC_AUTH_NAME'] && ENV['BASIC_AUTH_PASSWORD']
 end
 
 post '/hooks/:subscriber_id' do
-  DB[:hooks].insert(params)
+  subscriber_id = params.delete(:subscriber_id)
+  DB[:hooks].insert(subscriber_id: subscriber_id, payload: params.to_json)
+  200
 end
