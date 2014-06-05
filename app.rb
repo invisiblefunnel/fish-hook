@@ -21,7 +21,7 @@ if ENV['BASIC_AUTH_NAME'] && ENV['BASIC_AUTH_PASSWORD']
 end
 
 get '/' do
-  @hooks = DB[:hooks].limit(500)
+  @hooks = DB[:hooks].order(Sequel.desc(:created_at)).limit(500)
   erb :index
 end
 
