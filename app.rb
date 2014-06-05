@@ -21,8 +21,8 @@ if ENV['BASIC_AUTH_NAME'] && ENV['BASIC_AUTH_PASSWORD']
 end
 
 get '/' do
-  @hooks = DB[:hooks].order(Sequel.desc(:created_at)).limit(500)
-  erb :index
+  content_type :json
+  JSON.pretty_generate DB[:hooks].order(Sequel.desc(:created_at)).limit(500).all
 end
 
 post '/hooks/:subscriber_id' do
