@@ -14,9 +14,12 @@ DB.create_table?(:hooks) do
   DateTime :created_at
 end
 
-if ENV['BASIC_AUTH_NAME'] && ENV['BASIC_AUTH_PASSWORD']
+auth_name = ENV['BASIC_AUTH_NAME']
+auth_password = ENV['BASIC_AUTH_PASSWORD']
+
+if auth_name && auth_password
   use Rack::Auth::Basic, 'Restricted Area' do |name, password|
-    name == ENV['BASIC_AUTH_NAME'] && password == ENV['BASIC_AUTH_PASSWORD']
+    name == auth_name && password == auth_password
   end
 end
 
