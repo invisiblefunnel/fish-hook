@@ -22,7 +22,7 @@ end
 
 get '/' do
   content_type :json
-  JSON.pretty_generate DB[:hooks].order(Sequel.desc(:created_at)).limit(500).all
+  JSON.pretty_generate DB[:hooks].order(Sequel.desc(:created_at)).limit(100).all
 end
 
 post '/hooks/:subscriber_id' do
